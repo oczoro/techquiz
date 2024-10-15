@@ -2,26 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  html {
+    font-family: var(--font-primary);
+    background-color: #f5f7ff;
+    color: theme("colors.slate.600");
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-secondary);
+  }
+
+  select {
+    appearance: none;
+    background-image: url("/icons/chevron_down.svg");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem top 50%;
+    background-size: 1rem auto;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-3xl;
+  }
+
+  .button {
+    @apply rounded-lg border border-white bg-slate-50 px-4 py-1 text-lg text-slate-500 [box-shadow:_0_3px_0_0_theme(colors.slate.400)] transition duration-75 ease-in;
+  }
+
+  .button--primary {
+    border: none;
+    color: white;
+    background: radial-gradient(farthest-corner at 80% -10%,
+        #00ffd4 0%,
+        #0c68e0 80%);
+    box-shadow:
+      0 3px 0 0 #2b3fc6,
+      0 4px 11px 0 rgba(43, 63, 198, 0.5);
+  }
+
+  .button--primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(3px);
+    box-shadow:
+      0 4px 11px 0 rgba(43, 63, 198, 0.5);
+  }
+
+  .input {
+    @apply rounded border border-white bg-transparent px-4 py-2 text-slate-500;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .text-gradient {
+    @apply inline-block bg-gradient-to-t from-[#1F92E4] to-[#1FC0E4] bg-clip-text text-transparent;
+  }
+
+  .text-gradient-brand {
+    @apply inline-block bg-gradient-to-t from-[#1F92E4] to-[#1FE4C3] bg-clip-text text-transparent;
+  }
+
+  .text-any {
+    @apply text-gradient-brand;
+  }
+
+  .text-easy {
+    @apply text-green-500;
+  }
+
+  .text-medium {
+    @apply text-yellow-500;
+  }
+
+  .text-hard {
+    @apply text-red-500;
+  }
+
+  .form-shadow {
+    box-shadow: 0 8px 20px 0 #d1d0f0;
+  }
+
+  .input-shadow {
+    box-shadow: 0 1px 4px 0 #d1d0f0;
+  }
+
+  .input-shadow--inner {
+    box-shadow: inset 0 0 5px 0 #d1d0f0;
+  }
+}
+
+/* -------------------- CLERK OVERRIDES -------------------- */
+.cl-avatarBox {
+  width: 36px;
+  height: 36px;
 }

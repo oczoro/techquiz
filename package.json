@@ -9,18 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.7.2",
+    "@headlessui/react": "^2.1.10",
+    "clsx": "^2.1.1",
+    "convex": "^1.16.5",
+    "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.15"
+    "tailwind-merge": "^2.5.3"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@iconify-json/ion": "^1.2.1",
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.15"
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5",
+    "unplugin-icons": "^0.19.3"
   }
 }
