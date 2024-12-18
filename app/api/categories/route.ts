@@ -13,7 +13,8 @@ export const GET = async () => {
   });
   const data = await response.json();
 
-  if (data.error) return Error(data.error);
+  if (data.error)
+    return NextResponse.json({ error: `${data.error}` }, { status: 500 });
 
   data.unshift({ id: 0, name: "Any" });
 

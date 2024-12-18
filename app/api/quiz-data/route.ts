@@ -14,8 +14,10 @@ export const GET = async (request: Request) => {
   );
   const data = await response.json();
 
-  if (data.error === 404) return Error("No questions found");
-  if (data.error === 429) return Error("Too many requests");
+  if (data.error === 404)
+    return NextResponse.json({ error: "No questions found" }, { status: 404 });
+  if (data.error === 429)
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
 
   return new NextResponse(JSON.stringify(data), {
     headers: {
