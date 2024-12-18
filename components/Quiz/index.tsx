@@ -1,7 +1,7 @@
 "use client";
 import { QuizAPIQuestion, SavedQuizData } from "@/types";
-import IonCheckmarkCircle from "~icons/ion/checkmark-circle";
-import IonCloseCircle from "~icons/ion/close-circle";
+import IonCheckmarkCircle from "~icons/ion/checkmark-circle.jsx";
+import IonCloseCircle from "~icons/ion/close-circle.jsx";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

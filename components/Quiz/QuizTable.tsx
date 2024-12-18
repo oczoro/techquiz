@@ -12,15 +12,15 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
-import IonSearch from "~icons/ion/search";
-import IonChevronDown from "~icons/ion/chevron-down";
-import IonFilter from "~icons/ion/filter";
-import IonClose from "~icons/ion/close";
-import TablerSortAZ from "~icons/tabler/sort-a-z";
-import TablerSortZA from "~icons/tabler/sort-z-a";
-import TablerSortAscending from "~icons/tabler/sort-ascending";
-import TablerSortDescending from "~icons/tabler/sort-descending";
-import IonTrash from "~icons/ion/trash";
+import IonSearch from "~icons/ion/search.jsx";
+import IonChevronDown from "~icons/ion/chevron-down.jsx";
+import IonFilter from "~icons/ion/filter.jsx";
+import IonClose from "~icons/ion/close.jsx";
+import TablerSortAZ from "~icons/tabler/sort-a-z.jsx";
+import TablerSortZA from "~icons/tabler/sort-z-a.jsx";
+import TablerSortAscending from "~icons/tabler/sort-ascending.jsx";
+import TablerSortDescending from "~icons/tabler/sort-descending.jsx";
+import IonTrash from "~icons/ion/trash.jsx";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useEffect, useState } from "react";

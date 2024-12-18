@@ -27,9 +27,9 @@ import InfoIcon from "../InfoIcon";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-import IonCheckmark from "~icons/ion/checkmark";
-import IonClose from "~icons/ion/close";
-import IonTrash from "~icons/ion/trash";
+import IonCheckmark from "~icons/ion/checkmark.jsx";
+import IonClose from "~icons/ion/close.jsx";
+import IonTrash from "~icons/ion/trash.jsx";
 import { useRouter } from "next/navigation";
 import { Authenticated, Unauthenticated, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";

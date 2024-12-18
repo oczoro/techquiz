@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
-import IonHelpCircle from "~icons/ion/help-circle";
+import IonHelpCircle from "~icons/ion/help-circle.jsx";
 
 const InfoIcon = ({
   className,

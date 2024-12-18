@@ -17,7 +17,7 @@ import {
 import { useState } from "react";
 
 import IonChevronDown from "~icons/ion/chevron-down.jsx";
-import IonCheckmark from "~icons/ion/checkmark";
+import IonCheckmark from "~icons/ion/checkmark.jsx";
 
 import { Tag as TagComponent } from "@/components/Tag";
 

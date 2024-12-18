@@ -1,6 +1,6 @@
 "use client";
 import { Tag as TagType } from "@/types";
-import IonClose from "~icons/ion/close";
+import IonClose from "~icons/ion/close.jsx";
 
 export const Tag = ({
   tag,
