@@ -16,10 +16,6 @@ import IonSearch from "~icons/ion/search.jsx";
 import IonChevronDown from "~icons/ion/chevron-down.jsx";
 import IonFilter from "~icons/ion/filter.jsx";
 import IonClose from "~icons/ion/close.jsx";
-import TablerSortAZ from "~icons/tabler/sort-a-z.jsx";
-import TablerSortZA from "~icons/tabler/sort-z-a.jsx";
-import TablerSortAscending from "~icons/tabler/sort-ascending.jsx";
-import TablerSortDescending from "~icons/tabler/sort-descending.jsx";
 import IonTrash from "~icons/ion/trash.jsx";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -49,13 +45,13 @@ function Sort({ sort, className }: { sort?: string; className?: string }) {
   function getSortingIcon(value: string) {
     switch (value) {
       case "az":
-        return <TablerSortAZ className="size-6" />;
+        return "A-Z";
       case "za":
-        return <TablerSortZA className="size-6" />;
+        return "Z-A";
       case "asc":
-        return <TablerSortAscending className="size-6" />;
+        return "Recent";
       case "desc":
-        return <TablerSortDescending className="size-6" />;
+        return "Oldest";
     }
   }
 
@@ -82,7 +78,7 @@ function Sort({ sort, className }: { sort?: string; className?: string }) {
               "text-slate-500": selectedSort === "az",
             })}
           >
-            <TablerSortAZ className="size-5" />A to Z
+            A to Z
           </button>
         </MenuItem>
         <MenuItem>
@@ -92,7 +88,7 @@ function Sort({ sort, className }: { sort?: string; className?: string }) {
               "text-slate-500": selectedSort === "za",
             })}
           >
-            <TablerSortZA className="size-5" />Z to A
+            Z to A
           </button>
         </MenuItem>
         <MenuItem>
@@ -102,7 +98,6 @@ function Sort({ sort, className }: { sort?: string; className?: string }) {
               "text-slate-500": selectedSort === "asc",
             })}
           >
-            <TablerSortAscending className="size-5" />
             Recent
           </button>
         </MenuItem>
@@ -113,7 +108,6 @@ function Sort({ sort, className }: { sort?: string; className?: string }) {
               "text-slate-500": selectedSort === "desc",
             })}
           >
-            <TablerSortDescending className="size-5" />
             Oldest
           </button>
         </MenuItem>
