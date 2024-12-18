@@ -5,7 +5,7 @@
 @layer base {
   html {
     font-family: var(--font-primary);
-    background-color: #f5f7ff;
+    background-color: theme("colors.background.light");
     color: theme("colors.slate.600");
   }
 
@@ -29,29 +29,49 @@
 
 @layer components {
   .container {
-    @apply mx-auto w-full max-w-3xl;
+    @apply mx-auto w-full max-w-3xl p-4 px-10 md:max-w-4xl;
   }
 
   .button {
-    @apply rounded-lg border border-white bg-slate-50 px-4 py-1 text-lg text-slate-500 [box-shadow:_0_3px_0_0_theme(colors.slate.400)] transition duration-75 ease-in;
+    @apply rounded-lg border border-white bg-slate-50 px-4 py-1 text-lg text-slate-500 transition duration-75 ease-in [box-shadow:_0_3px_0_0_theme(colors.slate.400)];
+  }
+
+  .button:hover {
+    filter: brightness(1.1);
+    transform: translateY(3px);
+    box-shadow: 0 2px 3px 0 #94a3b880;
   }
 
   .button--primary {
     border: none;
     color: white;
-    background: radial-gradient(farthest-corner at 80% -10%,
-        #00ffd4 0%,
-        #0c68e0 80%);
+    background: radial-gradient(
+      farthest-corner at 80% -10%,
+      #00ffd4 0%,
+      #0c68e0 80%
+    );
     box-shadow:
       0 3px 0 0 #2b3fc6,
       0 4px 11px 0 rgba(43, 63, 198, 0.5);
   }
 
   .button--primary:hover {
-    filter: brightness(1.1);
-    transform: translateY(3px);
-    box-shadow:
-      0 4px 11px 0 rgba(43, 63, 198, 0.5);
+    box-shadow: 0 4px 11px 0 rgba(43, 63, 198, 0.5);
+  }
+
+  .button--danger {
+    border: 1px solid theme("colors.red.400");
+    color: white;
+    background: radial-gradient(
+      farthest-corner at 80% -10%,
+      theme("colors.red.400") 0%,
+      theme("colors.red.600") 80%
+    );
+    box-shadow: 0 3px 0 0 theme("colors.red.800");
+  }
+
+  .button--danger:hover {
+    box-shadow: 0 1px 11px 0 #ef444428;
   }
 
   .input {
@@ -98,6 +118,10 @@
 
   .input-shadow--inner {
     box-shadow: inset 0 0 5px 0 #d1d0f0;
+  }
+
+  .footer-shadow {
+    box-shadow: inset 0 8px 20px 0 #d1d0f0a2;
   }
 }
 

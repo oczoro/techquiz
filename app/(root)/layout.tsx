@@ -1,7 +1,4 @@
-"use client";
-
-import { UserButton } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated } from "convex/react";
+import NavbarClerk from "@/components/NavbarClerk";
 import Link from "next/link";
 
 export default function RootLayout({
@@ -10,34 +7,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative flex flex-col">
-      <div className="container flex items-center justify-between p-4">
+    <div className="relative flex min-h-screen flex-col">
+      <div className="container flex h-[68px] items-center justify-between">
         <Link
           href="/"
           className="font-secondary text-xl font-medium text-slate-700"
         >
           tech<span className="text-gradient-brand"> quiz</span>
         </Link>
-        <Authenticated>
-          <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="text-lg">
-              dashboard
-            </Link>
-            <UserButton />
-          </div>
-        </Authenticated>
-        <Unauthenticated>
-          <div className="drop-shadow-md transition duration-75 ease-in hover:translate-y-[3px]">
-            <Link
-              href="/sign-in"
-              className="button hover:shadow-none active:brightness-90"
-            >
-              sign in
-            </Link>
-          </div>
-        </Unauthenticated>
+        <NavbarClerk />
       </div>
-      <main className="relative flex">{children}</main>
+      <main className="relative flex grow">{children}</main>
+      <footer className="footer-shadow">
+        <div className="container flex flex-col items-center py-12 text-center">
+          <Link
+            href="/"
+            className="font-secondary text-xl font-medium text-slate-700"
+          >
+            tech<span className="text-gradient-brand"> quiz</span>
+          </Link>
+          <Link
+            href="https://kevinoroz.co"
+            className="mt-2 text-sm text-slate-600"
+          >
+            Made by Kevin Orozco
+          </Link>
+        </div>
+      </footer>
     </div>
   );
 }

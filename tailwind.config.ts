@@ -13,8 +13,9 @@ const config: Config = {
         secondary: "var(--font-secondary)",
       },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: {
+          light: "#f5f7ff",
+        },
       },
     },
   },

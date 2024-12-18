@@ -11,6 +11,7 @@ const convex = new ConvexReactClient(
 
 const ConvexClerkProvider = ({ children }: { children: ReactNode }) => (
   <ClerkProvider
+    dynamic
     publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY as string}
   >
     <ConvexProviderWithClerk client={convex} useAuth={useAuth}>

@@ -4,8 +4,9 @@ import {
   Roboto_Flex as DefaultFont,
 } from "next/font/google";
 import "./globals.css";
-import ConvexClerkProvider from "@/providers/ConvexClerkProvider";
 import { cn } from "@/lib/utils";
+import { Toaster } from "react-hot-toast";
+import Providers from "@/providers/Providers";
 
 const defaultFont = DefaultFont({
   subsets: ["latin"],
@@ -42,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ConvexClerkProvider>
+    <Providers>
       <html lang="en">
         <body
           className={cn(
@@ -50,9 +51,10 @@ export default function RootLayout({
             defaultFont.className,
           )}
         >
+          <Toaster position="bottom-right" reverseOrder={false} />
           {children}
         </body>
       </html>
-    </ConvexClerkProvider>
+    </Providers>
   );
 }
