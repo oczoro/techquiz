@@ -34,7 +34,7 @@ const Dashboard = async ({
   const emoji = emojis[Math.floor(Math.random() * emojis.length)];
 
   return (
-    <section className="container flex flex-col">
+    <section className="container mb-16 flex flex-col">
       <div className="flex items-center justify-between gap-4">
         <p className="flex items-center gap-2 text-2xl">
           <span>Hi, {clerkUser ? clerkUser.firstName : "Welcome"}!</span>

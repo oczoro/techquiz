@@ -34,7 +34,7 @@ import { useRouter } from "next/navigation";
 import { Authenticated, Unauthenticated, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import toast from "react-hot-toast";
-import { useSignIn } from "@clerk/nextjs";
+import { useSignUp } from "@clerk/nextjs";
 import { useSessionStorage } from "@/hooks/useSessionStorage";
 import { DataModel } from "@/convex/_generated/dataModel";
 import { useState } from "react";
@@ -129,9 +129,21 @@ const Question = ({
     name: "Any",
   });
   const [difficulty, setSelectedDifficulty] = useState(
-    (data.difficulty as Difficulties) ?? "Any",
+    data.difficulty ?? "Any",
   );
   const [tags, setSelectedTags] = useState(data.tags ?? []);
+
+  function answersToObject(
+    answers: { key: string; value: string | null; correct: boolean }[],
+  ) {
+    const answersObject: { [key: string]: string | null } = {};
+    const correct_answers: { [key: string]: string } = {};
+    answers.forEach((answer) => {
+      answersObject[answer.key] = answer.value;
+      correct_answers[`${answer.key}_correct`] = answer.correct + "";
+    });
+    return { _answers: answersObject, correct_answers: correct_answers };
+  }
 
   function handleEditAnswer(key: string, value: string) {
     setAnswers(
@@ -159,6 +171,26 @@ const Question = ({
       }),
     );
   }
+  function handleSaveData() {
+    const isMultipleChoice =
+      answers.filter((answer) => answer.correct).length > 1;
+    const { _answers, correct_answers } = answersToObject(answers);
+    const payload: QuizAPIQuestion = {
+      id: data.id,
+      question: question,
+      description: description,
+      answers: _answers as QuizAPIQuestion["answers"],
+      explanation: explanation,
+      tip: tip,
+      category: category,
+      difficulty: difficulty,
+      tags: tags,
+      multiple_correct_answers: (isMultipleChoice + "") as "true" | "false",
+      correct_answers: correct_answers as QuizAPIQuestion["correct_answers"],
+    };
+    onSave(payload);
+    onEdit(null);
+  }
 
   return (
     <div className={cn("grid grid-cols-8 gap-4", className)}>
@@ -183,10 +215,7 @@ const Question = ({
                 Close
               </button>
               <button
-                onClick={() => {
-                  onSave(data);
-                  onEdit(null);
-                }}
+                onClick={handleSaveData}
                 className="button button--primary w-[4rem] py-0 text-sm"
               >
                 Save
@@ -297,10 +326,11 @@ const Question = ({
         />
         <DifficultyRadioGroup
           className="col-span-4 mt-4"
-          value={difficulty as Difficulties}
+          value={difficulty}
           renderOptionAny={false}
           onChange={(difficulty) => {
             if (!difficulty) return;
+            if (difficulty === "Any") return;
             setSelectedDifficulty(difficulty);
           }}
         />
@@ -329,7 +359,7 @@ const QuizForm = ({
   const { value: reviewData, updateValue: setReviewData } =
     useSessionStorage<SavedQuizData>("reviewData", {
       meta: {
-        name: "New Quiz",
+        name: "",
         category: "Any",
         difficulty: "Any",
         tags: [],
@@ -369,26 +399,27 @@ const QuizForm = ({
     };
 
     setReviewData({
-      ...reviewData,
+      meta: { ...reviewData.meta },
       questions: [...reviewData.questions, newQuestion],
     });
   }
 
   function updateQuestion(id: number, data: QuizAPIQuestion) {
+    const newQuestions = reviewData.questions.map((question) => {
+      if (question.id === id) {
+        return data;
+      }
+      return question;
+    });
     setReviewData({
-      ...reviewData,
-      questions: reviewData.questions.map((question) => {
-        if (question.id === id) {
-          return data;
-        }
-        return question;
-      }),
+      meta: { ...reviewData.meta },
+      questions: newQuestions,
     });
   }
 
   function removeQuestion(id: number) {
     setReviewData({
-      ...reviewData,
+      meta: { ...reviewData.meta },
       questions: reviewData.questions.filter((question) => question.id !== id),
     });
   }
@@ -415,7 +446,7 @@ const QuizForm = ({
     router.push("/quiz/take");
   }
 
-  const { signIn } = useSignIn();
+  const { signUp } = useSignUp();
   async function saveQuiz() {
     try {
       const parsedTags = reviewData.meta.tags.map((tag) => ({
@@ -436,8 +467,8 @@ const QuizForm = ({
       toast.error("Error saving quiz");
     }
   }
-  function handleSignIn() {
-    signIn?.authenticateWithRedirect({
+  function handleSignUp() {
+    signUp?.authenticateWithRedirect({
       strategy: "oauth_google",
       redirectUrl: "/sign-in",
       redirectUrlComplete: "/quiz/review?saved=true",
@@ -449,13 +480,13 @@ const QuizForm = ({
       <Fieldset className="container grid grid-cols-8 gap-x-4">
         <Legend className="col-span-full mb-8 flex items-center justify-between gap-4 text-xl text-slate-500">
           <Input
-            className="grow border-b bg-transparent px-2 py-2"
-            placeholder="Quiz Name"
+            className="input input-shadow grow py-2"
+            placeholder="Enter quiz name"
             value={reviewData.meta.name}
             onChange={(e) =>
               setReviewData({
-                ...reviewData,
                 meta: { ...reviewData.meta, name: e.target.value },
+                questions: reviewData.questions,
               })
             }
           />
@@ -489,8 +520,8 @@ const QuizForm = ({
           onChange={(category) => {
             if (!category) return;
             setReviewData({
-              ...reviewData,
               meta: { ...reviewData.meta, category: category.name },
+              questions: reviewData.questions,
             });
           }}
         />
@@ -501,8 +532,8 @@ const QuizForm = ({
           onChange={(difficulty) => {
             if (!difficulty) return;
             setReviewData({
-              ...reviewData,
               meta: { ...reviewData.meta, difficulty: difficulty },
+              questions: reviewData.questions,
             });
           }}
         />{" "}
@@ -514,15 +545,15 @@ const QuizForm = ({
           tags={reviewData.meta.tags}
           onChange={(tags) =>
             setReviewData({
-              ...reviewData,
               meta: { ...reviewData.meta, tags: tags },
+              questions: reviewData.questions,
             })
           }
         />
       </Fieldset>
       <Fieldset>
         <Legend className="container col-span-full flex items-center justify-between py-2 text-xl text-slate-500">
-          <span className="font-bold">Questions</span>
+          <span>Questions</span>
           <div className="flex items-center gap-4">
             <Button
               onClick={addQuestion}
@@ -558,7 +589,7 @@ const QuizForm = ({
         </Authenticated>
         <Unauthenticated>
           <button
-            onClick={handleSignIn}
+            onClick={handleSignUp}
             className="button button--primary w-48"
           >
             Save Quiz

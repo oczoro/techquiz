@@ -1,9 +1,32 @@
 import { internalMutation, query } from "./_generated/server";
 import { ConvexError, v } from "convex/values";
 
-export const getUserById = query({
-  args: { clerkId: v.string() },
+export const doesUserExist = query({
+  args: { clerkId: v.optional(v.string()) },
   handler: async (ctx, args) => {
+    if (!args.clerkId) {
+      return false;
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("clerkId"), args.clerkId))
+      .unique();
+
+    if (!user) {
+      return false;
+    }
+
+    return true;
+  },
+});
+export const getUserById = query({
+  args: { clerkId: v.optional(v.string()) },
+  handler: async (ctx, args) => {
+    if (!args.clerkId) {
+      throw new ConvexError("Clerk ID is required");
+    }
+
     const user = await ctx.db
       .query("users")
       .filter((q) => q.eq(q.field("clerkId"), args.clerkId))

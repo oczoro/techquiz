@@ -20,7 +20,7 @@ export const createQuiz = mutation({
         v.literal("Hard"),
         v.literal("Any"),
       ),
-      tags: v.array(v.object({ name: v.string() })),
+      tags: v.array(v.object({ id: v.optional(v.number()), name: v.string() })),
     }),
     questions: v.array(
       v.object({
@@ -50,7 +50,9 @@ export const createQuiz = mutation({
         }),
         explanation: v.union(v.string(), v.null()),
         tip: v.union(v.string(), v.null()),
-        tags: v.array(v.object({ name: v.string() })),
+        tags: v.array(
+          v.object({ id: v.optional(v.number()), name: v.string() }),
+        ),
         category: v.string(),
         difficulty: v.union(
           v.literal("Easy"),

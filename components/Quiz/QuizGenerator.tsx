@@ -90,7 +90,7 @@ const QuizGenerator = ({
 
       setReviewData({
         meta: {
-          name: "Generated Quiz",
+          name: "",
           difficulty: selectedDifficulty,
           category: selectedCategory.name,
           tags: selectedTags,
@@ -145,8 +145,8 @@ const QuizGenerator = ({
         <TagCombobox
           className={cn("grow", "mt-4 sm:pl-4 md:mt-8")}
           classNameTags="basis-full"
-          tagList={tagList || []}
-          tags={selectedTags || []}
+          tagList={tagList ?? []}
+          tags={selectedTags ?? []}
           onChange={(tags) => setSelectedTags(tags)}
         />
       </div>

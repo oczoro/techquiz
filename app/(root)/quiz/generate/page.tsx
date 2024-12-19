@@ -27,7 +27,7 @@ async function GenerateQuiz({
         difficultyParam={difficulty}
         tagsParam={tags}
         limitParam={limit}
-        className="mt-16 max-w-3xl"
+        className="my-16 max-w-3xl"
       />
     </div>
   );
