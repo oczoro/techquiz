@@ -272,35 +272,56 @@ function QuizCard({
   function handleDelete() {
     deleteQuiz({ quizId: id });
   }
+
+  function handleQuizClick() {
+    setReviewData({
+      meta: {
+        name: meta.name,
+        category: meta.category,
+        difficulty: meta.difficulty,
+        tags: meta.tags,
+      },
+      questions: questions,
+    });
+    router.push("/quiz/take");
+  }
   return (
     <div
       className={cn(
-        "input input-shadow col-span-5 grid h-fit grid-cols-subgrid items-center divide-x rounded-md bg-background-light px-0",
+        "input input-shadow col-span-5 grid h-fit cursor-pointer grid-cols-subgrid items-center divide-x rounded-md bg-background-light p-0 transition duration-300 ease-out hover:brightness-105",
         className,
       )}
     >
-      <div className="px-4">
-        <p>{meta.name}</p>
-        <p
-          className={cn("text-sm leading-3 text-slate-400", {
-            "text-green-500": meta.difficulty === "Easy",
-            "text-yellow-500": meta.difficulty === "Medium",
-            "text-red-500": meta.difficulty === "Hard",
-          })}
-        >
-          {meta.difficulty}
-        </p>
+      <div
+        onClick={handleQuizClick}
+        className="col-span-4 grid grid-cols-subgrid items-center py-1"
+      >
+        <div className="px-4">
+          <p>{meta.name}</p>
+          <p
+            className={cn("text-sm leading-3 text-slate-400", {
+              "text-green-500": meta.difficulty === "Easy",
+              "text-yellow-500": meta.difficulty === "Medium",
+              "text-red-500": meta.difficulty === "Hard",
+            })}
+          >
+            {meta.difficulty}
+          </p>
+        </div>
+        <div className="px-4 text-center">{meta.category ?? "Test"}</div>
+        <div className="px-4 text-center">{questions.length} Questions</div>
+        <div className="px-4 text-center">{created}</div>
       </div>
-      <div className="px-4 text-center">{meta.category ?? "Test"}</div>
-      <div className="px-4 text-center">{questions.length} Questions</div>
-      <div className="px-4 text-center">{created}</div>
-      <div className="flex items-center text-right">
-        <button onClick={handleEdit} className="pl-4">
+      <div className="relative z-10 col-span-1 flex items-center text-right">
+        <button
+          onClick={handleEdit}
+          className="py-1 pl-2 pr-1 transition duration-100 ease-in hover:text-slate-900"
+        >
           edit
         </button>
         <button
           onClick={handleDelete}
-          className="px-2 py-0 text-sm text-red-500"
+          className="py-1 pl-1 pr-2 text-sm text-red-500 hover:brightness-105"
         >
           <IonTrash />
         </button>
