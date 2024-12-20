@@ -7,7 +7,7 @@ function Hero() {
     <section className="overflow-x-hidden">
       <div className="container py-20">
         <div className="flex">
-          <div className="basis-3/5 pb-32 pt-16 md:basis-2/5 md:pt-20">
+          <div className="basis-full pb-32 pt-16 text-center md:basis-2/5 md:pt-20 md:text-left">
             <h1 className="text-3xl font-bold">
               <span className="text-gradient-brand">Enhance</span> Your Coding
               Journey
@@ -26,7 +26,7 @@ function Hero() {
           <motion.div
             whileHover={{ scale: 1.1 }}
             animate={{ x: [1000, 0], transition: { duration: 0.8 } }}
-            className="relative -ml-16 basis-2/5 md:ml-0 md:basis-3/5"
+            className="relative -ml-16 hidden basis-2/5 md:ml-0 md:block md:basis-3/5"
           >
             <div className="absolute left-0 top-0">
               <div className="form-shadow flex w-[580px] translate-x-20 flex-col items-center justify-center rounded-2xl border-2 border-white bg-background-light px-20 py-12">
@@ -162,7 +162,7 @@ function CTA() {
   return (
     <section>
       <div className="container flex flex-col items-center justify-center gap-4 py-16">
-        <h2 className="text-3xl font-bold">Start Your Journey!</h2>
+        <h2 className="text-center text-3xl font-bold">Start Your Journey!</h2>
         <Link
           href="/sign-up"
           className="button button--primary w-48 text-center"
